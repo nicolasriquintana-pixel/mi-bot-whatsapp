@@ -7,11 +7,12 @@ const client = new Client({
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     }
 });
+const fs = require('fs');
 client.on('qr', qr => {
     console.log('Escanea este código QR con tu WhatsApp:');
     qrcode.generate(qr, {small: true});
+    fs.writeFileSync('/tmp/qr.txt', qr);
 });
-
 client.on('ready', () => {
     console.log('✅ Bot conectado a WhatsApp!');
 });
